@@ -11,3 +11,9 @@ For now this repository contains:
 Currently I also use zsh with prezto. My personal fork of prezto lives in
 another repository.
 
+TODO
+----
+
+- Setup script (basically creates the simlinks)
+- My prezto as a submodule
+
