@@ -3,7 +3,7 @@ Marc Demierre's dotfiles
 
 My precious dotfiles.
 
-For now it contains :
+For now this repository contains:
 
-- ´vim´: VIM configuration
+- `vim`: VIM configuration
 
