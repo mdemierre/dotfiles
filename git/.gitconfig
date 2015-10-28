@@ -1,0 +1,8 @@
+[user]
+	name = Marc Demierre
+	email = marc.demierre@gmail.com
+[push]
+	default = simple
+[core]
+	autocrlf = input
+	excludesfile = ~/dotfiles/git/.gitignore_global
