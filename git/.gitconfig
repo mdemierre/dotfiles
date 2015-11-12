@@ -5,4 +5,4 @@
 	default = simple
 [core]
 	autocrlf = input
-	excludesfile = ~/dotfiles/git/.gitignore_global
+	excludesfile = ~/.dotfiles/git/.gitignore_global
