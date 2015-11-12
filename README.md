@@ -11,6 +11,33 @@ For now this repository contains:
 Currently I also use zsh with prezto. My personal fork of prezto lives in
 another repository.
 
+Git
+---
+
+    ln -s ~/.dotfiles/git/.gitconfig ~/.gitconfig
+
+
+Shell
+-----
+
+    # Setup zsh as shell
+    chsh -s /bin/zsh
+
+    # Setup ZSH theme
+    clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+
+
+VIM
+---
+
+    # Setup VIM config
+    ln -s ~/.dotfiles/vim/.vimrc ~/.vimrc
+    
+    # Setup Vundle for VIM plugins
+    clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    vim +PluginInstall +qall
+
+
 TODO
 ----
 
