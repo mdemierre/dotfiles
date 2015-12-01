@@ -1,5 +1,4 @@
-Marc Demierre's dotfiles
-========================
+# Marc Demierre's dotfiles
 
 My precious dotfiles.
 
@@ -9,26 +8,19 @@ For now this repository contains:
 - `vim`: VIM configuration (.vimrc)
 
 Currently I also use zsh with prezto. My personal fork of prezto lives in
-another repository.
+another repository:
 
-Git
----
+https://bitbucket.org/mdemierre/prezto
+
+## Installation
+
+    git clone git@bitbucket.org:mdemierre/dotfiles.git ~/.dotfiles
+
+### Git
 
     ln -s ~/.dotfiles/git/.gitconfig ~/.gitconfig
 
-
-Shell
------
-
-    # Setup zsh as shell
-    chsh -s /bin/zsh
-
-    # Setup ZSH theme
-    clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
-
-
-VIM
----
+### VIM
 
     # Setup VIM config
     ln -s ~/.dotfiles/vim/.vimrc ~/.vimrc
@@ -38,8 +30,7 @@ VIM
     vim +PluginInstall +qall
 
 
-TODO
-----
+## TODO
 
 - Setup script (basically creates the simlinks)
 - My prezto as a submodule
