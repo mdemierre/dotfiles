@@ -33,10 +33,9 @@ filetype plugin indent on    " required
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
-set number        "Line numbers
-
-set colorcolumn=80
-set cursorline
+set number         "Line numbers
+set colorcolumn=80 "Column at 80 chars
+set cursorline     "Highlight current line
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -46,6 +45,11 @@ endif
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+" Spelling language
+set spelllang=en_us
+
+" Git commit messages
+autocmd Filetype gitcommit setlocal spell textwidth=72 colorcolumn=72
 
 " ================================================
 " Colors and fonts
