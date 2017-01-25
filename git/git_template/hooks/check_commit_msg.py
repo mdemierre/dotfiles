@@ -15,6 +15,8 @@ from subprocess import CompletedProcess
 from typing import List, Tuple
 
 EDITOR = os.getenv('EDITOR', 'vim')
+CHAR_LIMIT_BODY = 72
+CHAR_LIMIT_SUMMARY = 50
 
 def check_body(body_lines: List[Tuple[str, int]]) -> List[str]:
     """
@@ -38,6 +40,9 @@ def check_summary(summary: str) -> List[str]:
     
     if(len(summary) > 50):
         errors.append("Summary: longer than 50 chars ({})".format(len(summary)))
+    
+    if(summary[-1] == '.'):
+        errors.append("Summary: Should not end with a period")
 
     return errors
 
@@ -54,22 +59,20 @@ def check_commit_msg(commit_msg: str) -> List[str] :
         (line, number) for line, number in raw_lines_numbered if not line.startswith("#")
     ]
 
+    
     # Check summary
-    errors.extend(check_summary(lines_numbered[0][0]))
+    if len(lines_numbered[0][0]) > 0:
+        errors.extend(check_summary(lines_numbered[0][0]))
 
     # Check body if any
     if len(lines_numbered) > 2:
         # There must be a separation line
         if lines_numbered[1][0]:
-            errors.append("No separation line between summary and body")
+            errors.append("Format: No separation line between summary and body")
         
         # Check the rest of the body
         errors.extend(check_body(lines_numbered[2:]))
-
-    # Last line must not be blank
-    if len(lines_numbered) > 1 and not lines_numbered[-1][0]:
-        errors.append("Last line must not be blank")
-
+    
     return errors
     
 def test():
@@ -82,21 +85,28 @@ if __name__ == "__main__":
         sys.exit(2)
 
     commit_msg = open(sys.argv[1]).read()
-    
     errors = check_commit_msg(commit_msg)
+
     while errors:
+        # Show errors
         print('Invalid git commit message format:')
         print('\n'.join(["  - {}".format(err) for err in errors]))
         print()
-        choice: str = input('Press y to edit and n to cancel the commit. [y/n]:')
-        if choice in ['n', 'no']:
+
+        choice: str = input('Edit, Cancel or Force? [e/c/f]: ')
+        if choice in ['c', 'cancel']:
             print("Canceled commit.")
             sys.exit(1)
+        elif choice in ['f', 'force']:
+            print("Forcing commit.")
+            sys.exit(0)
         else:
+            # Re-run editor
             completedProcess: CompletedProcess = subprocess.run([EDITOR, sys.argv[1]])
             if completedProcess.returncode != 0:
                 sys.exit(completedProcess.returncode)
             else:
+                commit_msg = open(sys.argv[1]).read()
                 errors = check_commit_msg(commit_msg) 
 
     sys.exit(0)
