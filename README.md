@@ -10,7 +10,7 @@ For now this repository contains:
 Currently I also use zsh with prezto. My personal fork of prezto lives in
 another repository:
 
-https://bitbucket.org/mdemierre/prezto
+https://github.com/mdemierre/prezto
 
 ## Installation
 
