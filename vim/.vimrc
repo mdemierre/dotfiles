@@ -9,8 +9,6 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -21,6 +19,16 @@ Plugin 'chriskempson/base16-vim'
 " Git Gutter
 Plugin 'airblade/vim-gitgutter'
 
+" Line numbers
+Plugin 'jeffkreeftmeijer/vim-numbertoggle'
+
+" Syntax checker
+Plugin 'vim-syntastic/syntastic'
+
+" Rust support
+Plugin 'rust-lang/rust.vim'
+Plugin 'cespare/vim-toml'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -29,13 +37,16 @@ filetype plugin indent on    " required
 " ================================================
 " Editor features
 " ================================================
+
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
-set number         "Line numbers
-set colorcolumn=80 "Column at 80 chars
-set cursorline     "Highlight current line
+" Lines
+set number         " Line numbers
+set colorcolumn=80 " Column at 80 chars
+set cursorline     " Highlight current line
+
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -48,8 +59,6 @@ set foldcolumn=1
 " Spelling language
 set spelllang=en_us
 
-" Git commit messages
-autocmd Filetype gitcommit setlocal spell textwidth=72 colorcolumn=72
 
 " ================================================
 " Colors and fonts
@@ -86,4 +95,34 @@ set tabstop=4
 " :W sudo saves the file 
 " " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
+
+
+" ================================================
+" Syntax checking (Syntastic)
+" ================================================
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+
+
+" ================================================
+" Git
+" ================================================
+
+" Git commit messages
+autocmd Filetype gitcommit setlocal spell textwidth=72 colorcolumn=72
+
+
+" ================================================
+" Rust
+" ================================================
+
+" Syntax checker
+let g:syntastic_rust_checkers = ['rustc']
 
