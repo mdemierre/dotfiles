@@ -1,0 +1,35 @@
+// Place your settings in this file to overwrite the default settings
+{
+    // Workbench
+    "workbench.colorTheme": "One Dark Pro",
+    "workbench.iconTheme": "vs-nomo-dark",
+    "workbench.sideBar.location": "left",
+
+    // Editor
+    "editor.fontFamily": "'Source Code Pro', Monaco, 'Courier New', monospace",
+    "editor.fontSize": 16,
+    "editor.rulers": [80],
+    "editor.minimap.enabled": true,
+
+    // Diff editor
+    "diffEditor.ignoreTrimWhitespace": false,
+
+    // Customizes which terminal application to run on OS X.
+    "terminal.external.osxExec": "iTerm.app",
+    
+    // Integrated terminal
+    "terminal.integrated.fontSize": 15,
+
+    // Python
+    "python.venvPath": "~/.pyenv/versions",
+    
+    // Custom file associations
+    "files.associations": {
+        "zshenv": "shellscript",
+        "zprofile": "shellscript",
+        "zshrc": "shellscript",
+        "zlogin": "shellscript",
+        "zlogout": "shellscript",
+        "zpreztorc": "shellscript"
+    },
+}
