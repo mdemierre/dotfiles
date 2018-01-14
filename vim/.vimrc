@@ -72,7 +72,7 @@ syntax on
 set background=dark
 set t_Co=256
 let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-railscasts
+colorscheme base16-onedark
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
