@@ -1,37 +1,5 @@
-set nocompatible              " be iMproved, required
-
-" ==============================================
-" Vundle
-" ==============================================
-
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" Base16 color schemes
-Plugin 'chriskempson/base16-vim'
-
-" Git Gutter
-Plugin 'airblade/vim-gitgutter'
-
-" Line numbers
-Plugin 'jeffkreeftmeijer/vim-numbertoggle'
-
-" Syntax checker
-Plugin 'vim-syntastic/syntastic'
-
-" Rust support
-Plugin 'rust-lang/rust.vim'
-Plugin 'cespare/vim-toml'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+" Source Vundle plugin list
+so $HOME/.dotfiles/vim/vundler.vim
 
 
 " ================================================
@@ -92,7 +60,7 @@ set tabstop=4
 " Commands
 " ================================================
 
-" :W sudo saves the file 
+" :W sudo saves the file
 " " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 
@@ -125,4 +93,3 @@ autocmd Filetype gitcommit setlocal spell textwidth=72 colorcolumn=72
 
 " Syntax checker
 let g:syntastic_rust_checkers = ['rustc']
-
