@@ -18,13 +18,13 @@ https://github.com/mdemierre/prezto
 
 ### Git
 
-    ln -s ~/.dotfiles/git/.gitconfig ~/.gitconfig
+    ln -s ~/.dotfiles/git/gitconfig ~/.gitconfig
 
 ### VIM
 
     # Setup VIM config
-    ln -s ~/.dotfiles/vim/.vimrc ~/.vimrc
-    
+    ln -s ~/.dotfiles/vim/vimrc ~/.vimrc
+
     # Setup Vundle for VIM plugins
     clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
@@ -34,4 +34,3 @@ https://github.com/mdemierre/prezto
 
 - Setup script (basically creates the simlinks)
 - My prezto as a submodule
-
