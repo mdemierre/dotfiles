@@ -86,10 +86,3 @@ let g:syntastic_check_on_wq = 0
 " Git commit messages
 autocmd Filetype gitcommit setlocal spell textwidth=72 colorcolumn=72
 
-
-" ================================================
-" Rust
-" ================================================
-
-" Syntax checker
-let g:syntastic_rust_checkers = ['rustc']
