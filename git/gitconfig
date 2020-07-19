@@ -6,31 +6,28 @@
 [includeIf "gitdir:dev/swisscom/"]
     path = /Users/taademaq/dev/swisscom/.gitconfig
 
-[push]
-    default = simple
 [core]
     autocrlf = input
     excludesfile = ~/.dotfiles/git/gitignore_global
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
+
+[delta]
+	syntax-theme = TwoDark
+	line-numbers = true
+
+[interactive]
+    diffFilter = delta --color-only
 
 [color]
 	ui = true
-
-[color "diff-highlight"]
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
-	oldNormal = red bold
-
-[color "diff"]
-	meta = yellow
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-    whitespace = red reverse
 
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
     required = true
+
+[push]
+    default = simple
+
+[pull]
+	ff = only
