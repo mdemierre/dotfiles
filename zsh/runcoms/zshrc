@@ -1,0 +1,300 @@
+bindkey -e
+
+# --------------------------------------------------------------------------------------------------------------------
+# Helpers
+# Inspired by Prezto
+# --------------------------------------------------------------------------------------------------------------------
+
+# Checks if a name is a command, function, or alias.
+function is-callable {
+  (( $+commands[$1] || $+functions[$1] || $+aliases[$1] || $+builtins[$1] ))
+}
+
+# Checks if running on macOS Darwin.
+function is-darwin {
+  [[ "$OSTYPE" == darwin* ]]
+}
+
+# Checks if running on Linux.
+function is-linux {
+  [[ "$OSTYPE" == linux* ]]
+}
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# History
+# --------------------------------------------------------------------------------------------------------------------
+
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Keymap
+# Inspired by Arch Wiki
+# --------------------------------------------------------------------------------------------------------------------
+
+# create a zkbd compatible hash;
+# to add other keys to this hash, see: man 5 terminfo
+typeset -g -A key
+
+key[Home]="${terminfo[khome]}"
+key[End]="${terminfo[kend]}"
+key[Insert]="${terminfo[kich1]}"
+key[Backspace]="${terminfo[kbs]}"
+key[Delete]="${terminfo[kdch1]}"
+key[Up]="${terminfo[kcuu1]}"
+key[Down]="${terminfo[kcud1]}"
+key[Left]="${terminfo[kcub1]}"
+key[Right]="${terminfo[kcuf1]}"
+key[PageUp]="${terminfo[kpp]}"
+key[PageDown]="${terminfo[knp]}"
+key[Shift-Tab]="${terminfo[kcbt]}"
+
+# setup key accordingly
+[[ -n "${key[Home]}"      ]] && bindkey -- "${key[Home]}"       beginning-of-line
+[[ -n "${key[End]}"       ]] && bindkey -- "${key[End]}"        end-of-line
+[[ -n "${key[Insert]}"    ]] && bindkey -- "${key[Insert]}"     overwrite-mode
+[[ -n "${key[Backspace]}" ]] && bindkey -- "${key[Backspace]}"  backward-delete-char
+[[ -n "${key[Delete]}"    ]] && bindkey -- "${key[Delete]}"     delete-char
+
+[[ -n "${key[Left]}"      ]] && bindkey -- "${key[Left]}"       backward-char
+[[ -n "${key[Right]}"     ]] && bindkey -- "${key[Right]}"      forward-char
+[[ -n "${key[PageUp]}"    ]] && bindkey -- "${key[PageUp]}"     beginning-of-buffer-or-history
+[[ -n "${key[PageDown]}"  ]] && bindkey -- "${key[PageDown]}"   end-of-buffer-or-history
+[[ -n "${key[Shift-Tab]}" ]] && bindkey -- "${key[Shift-Tab]}"  reverse-menu-complete
+
+# Finally, make sure the terminal is in application mode, when zle is
+# active. Only then are the values from $terminfo valid.
+if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
+  autoload -Uz add-zle-hook-widget
+  function zle_application_mode_start { echoti smkx }
+  function zle_application_mode_stop { echoti rmkx }
+  add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
+  add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
+fi
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# ls
+# Inspired by prezto
+# --------------------------------------------------------------------------------------------------------------------
+
+if [[ ${(@M)${(f)"$(ls --version 2>&1)"}:#*GNU *} ]]; then
+  # Define colors for GNU ls if they're not already defined
+  if (( ! $+LS_COLORS )); then
+    # Try dircolors when available
+    if is-callable 'dircolors'; then
+    eval "$(dircolors --sh $HOME/.dir_colors(.N))"
+    else
+    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
+    fi
+  fi
+
+  alias ls="${aliases[ls]:-ls} --color=auto"
+
+else
+  # Define colors for BSD ls if they're not already defined
+  if (( ! $+LSCOLORS )); then
+    export LSCOLORS='exfxcxdxbxGxDxabagacad'
+  fi
+
+  alias ls="${aliases[ls]:-ls} -G"
+fi
+
+alias l='ls -1A'         # Lists in one column, hidden files.
+alias ll='ls -lh'        # Lists human readable sizes.
+alias lr='ll -R'         # Lists human readable sizes, recursively.
+alias la='ll -A'         # Lists human readable sizes, hidden files.
+alias lm='la | "$PAGER"' # Lists human readable sizes, hidden files through pager.
+alias lk='ll -Sr'        # Lists sorted by size, largest last.
+alias lt='ll -tr'        # Lists sorted by date, most recent last.
+alias lc='lt -c'         # Lists sorted by date, most recent last, shows change time.
+alias lu='lt -u'         # Lists sorted by date, most recent last, shows access time.
+alias sl='ls'            # Correction for common spelling error.
+
+
+if [[ ${(@M)${(f)"$(ls --version 2>&1)"}:#*GNU *} ]]; then
+  alias lx='ll -XB'      # Lists sorted by extension (GNU only).
+fi
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# grep
+# --------------------------------------------------------------------------------------------------------------------
+
+export GREP_COLOR=${GREP_COLOR:-'37;45'}            # BSD.
+export GREP_COLORS=${GREP_COLORS:-"mt=$GREP_COLOR"} # GNU.
+alias grep="${aliases[grep]:-grep} --color=auto"
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Completion
+# Inspired by prezto
+# --------------------------------------------------------------------------------------------------------------------
+
+# Load completion
+autoload -Uz compinit
+_comp_path="${XDG_CACHE_HOME:-$HOME/.cache}/prezto/zcompdump"
+# #q expands globs in conditional expressions
+if [[ $_comp_path(#qNmh-20) ]]; then
+  # -C (skip function check) implies -i (skip security check).
+  compinit -C -d "$_comp_path"
+else
+  mkdir -p "$_comp_path:h"
+  compinit -i -d "$_comp_path"
+  # Keep $_comp_path younger than cache time even if it isn't regenerated.
+  touch "$_comp_path"
+fi
+unset _comp_path
+
+setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
+setopt ALWAYS_TO_END        # Move cursor to the end of a completed word.
+setopt PATH_DIRS            # Perform path search even on command names with slashes.
+setopt AUTO_MENU            # Show completion menu on a successive tab press.
+setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
+setopt AUTO_PARAM_SLASH     # If completed parameter is a directory, add a trailing slash.
+setopt EXTENDED_GLOB        # Needed for file modification glob modifiers with compinit.
+unsetopt MENU_COMPLETE      # Do not autoselect the first completion entry.
+unsetopt FLOW_CONTROL       # Disable start/stop characters in shell editor.
+
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+
+# Case-insensitive
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+unsetopt CASE_GLOB
+
+# Menu
+zstyle ':completion:*' menu select
+
+# Cache
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache"
+
+# Group matches and describe.
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
+zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
+zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
+zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
+zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' verbose yes
+
+# Don't complete unavailable commands.
+zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
+
+# Array completion element sorting.
+zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+
+# Directories
+zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
+zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
+zstyle ':completion:*:-tilde-:*' group-order 'named-directories' 'path-directories' 'users' 'expand'
+zstyle ':completion:*' squeeze-slashes true
+
+# History
+zstyle ':completion:*:history-words' stop yes
+zstyle ':completion:*:history-words' remove-all-dups yes
+zstyle ':completion:*:history-words' list false
+zstyle ':completion:*:history-words' menu yes
+
+# Environment Variables
+zstyle ':completion::*:(-command-|export):*' fake-parameters ${${${_comps[(I)-value-*]#*,}%%,*}:#-*-}
+
+# Kill
+zstyle ':completion:*:*:*:*:processes' command 'ps -u $LOGNAME -o pid,user,command -w'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;36=0=01'
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:*:kill:*' force-list always
+zstyle ':completion:*:*:kill:*' insert-ids single
+
+# Man
+zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*:manuals.(^1*)' insert-sections true
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# ZSH plugins
+# --------------------------------------------------------------------------------------------------------------------
+
+source <(antibody init)
+antibody bundle < ~/.dotfiles/zsh/zsh_plugins.txt
+
+# History search
+[[ -n "${key[Up]}"        ]] && bindkey -- "${key[Up]}"    history-substring-search-up
+[[ -n "${key[Down]}"      ]] && bindkey -- "${key[Down]}"  history-substring-search-down
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Shell colors
+# --------------------------------------------------------------------------------------------------------------------
+
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Utilities
+# --------------------------------------------------------------------------------------------------------------------
+
+# z
+is-callable 'zoxide'  && eval "$(zoxide init zsh)"
+
+# fuck
+is-callable 'thefuck' && eval "$(thefuck --alias)"
+
+# bat as default cat
+alias cat=bat
+alias pcat=cat
+
+# --------------------------------------------------------------------------------------------------------------------
+# Development tools
+# --------------------------------------------------------------------------------------------------------------------
+
+# Python
+is-callable 'pyenv' && eval "$(pyenv init -)"
+
+# NodeJS
+is-linux && [ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh  # ArchLinux
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Misc aliases
+# --------------------------------------------------------------------------------------------------------------------
+
+# k8s
+alias k=kubectl
+
+# Easy open with default app
+if is-linux; then
+  alias o=xdg-open
+elif is-darwin; then
+  alias o=open
+fi
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Misc aliases
+# --------------------------------------------------------------------------------------------------------------------
+
+# Set window title to current directory
+function set_win_title(){
+    echo -ne "\033]0; $PWD \007"
+}
+precmd_functions+=(set_win_title)
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Prompt
+# --------------------------------------------------------------------------------------------------------------------
+
+# Use starship as prompt
+eval "$(starship init zsh)"

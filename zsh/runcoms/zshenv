@@ -1,0 +1,3 @@
+# VIM as standard editor
+export VISUAL=vim
+export EDITOR="$VISUAL"

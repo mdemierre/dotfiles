@@ -1,0 +1,5 @@
+zsh-users/zsh-autosuggestions
+
+# Those 2 must be loaded last, in this order
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-history-substring-search
