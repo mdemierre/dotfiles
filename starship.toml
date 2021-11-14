@@ -4,6 +4,9 @@ add_newline = true
 format = """$username$directory$fill $git_status$git_branch$python$nodejs$cmd_duration$time$jobs
 $status$character"""
 
+[directory]
+read_only = " "
+
 [fill]
 symbol = "─"
 style = "dimmed white"
@@ -11,10 +14,19 @@ style = "dimmed white"
 [cmd_duration]
 min_time = 1_000
 style = "yellow"
+format = "[ $duration]($style) "
+
+[git_branch]
+symbol = " "
+
+[python]
+symbol = " "
+
+[status]
+disabled = false
+symbol = " "
 
 [time]
 disabled = false
 style = "blue"
-
-[status]
-disabled = false
+format = "[ $time]($style) "
