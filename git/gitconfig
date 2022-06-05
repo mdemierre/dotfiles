@@ -2,32 +2,43 @@
     name = Marc Demierre
     email = marc.demierre@gmail.com
 
-# Override for work
-[includeIf "gitdir:dev/swisscom/"]
-    path = /Users/taademaq/dev/swisscom/.gitconfig
-
 [core]
     autocrlf = input
     excludesfile = ~/.dotfiles/git/gitignore_global
-	pager = delta
+    pager = delta --dark --syntax-theme='TwoDark' --file-style="yellow" --file-decoration-style="yellow" --hunk-header-decoration-style="plain"
 
 [delta]
-	syntax-theme = TwoDark
-	line-numbers = true
+    syntax-theme = TwoDark
+    line-numbers = true
 
 [interactive]
     diffFilter = delta --color-only
 
 [color]
-	ui = true
+    ui = true
+
+[color "diff-highlight"]
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+    oldNormal = red bold
+
+[color "diff"]
+    meta = yellow
+    frag = magenta bold
+    commit = yellow bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
 
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
     required = true
+    process = git-lfs filter-process
 
 [push]
     default = simple
 
 [pull]
-	ff = only
+    ff = only

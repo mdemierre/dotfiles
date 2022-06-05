@@ -1,28 +1,30 @@
 // Place your settings in this file to overwrite the default settings
 {
-    // Workbench
     "workbench.colorTheme": "One Dark Pro",
     "workbench.iconTheme": "vs-nomo-dark",
     "workbench.sideBar.location": "left",
-
     // Editor
-    "editor.fontFamily": "'Source Code Pro', Monaco, 'Courier New', monospace",
-    "editor.fontSize": 16,
-    "editor.rulers": [80],
-    "editor.minimap.enabled": true,
-
+    "editor.fontFamily": "'SF Mono','Source Code Pro', Monaco, 'Courier New', monospace",
+    "editor.fontSize": 18,
+    "editor.rulers": [
+        80,
+        100,
+        120
+    ],
+    "editor.wordWrapColumn": 120,
+    "editor.minimap.enabled": false,
+    // Files
+    "files.trimTrailingWhitespace": false,
+    "files.trimFinalNewlines": false,
     // Diff editor
     "diffEditor.ignoreTrimWhitespace": false,
-
     // Customizes which terminal application to run on OS X.
     "terminal.external.osxExec": "iTerm.app",
-    
     // Integrated terminal
     "terminal.integrated.fontSize": 15,
-
     // Python
     "python.venvPath": "~/.pyenv/versions",
-    
+    "python.pythonPath": "/usr/local/python3",
     // Custom file associations
     "files.associations": {
         "zshenv": "shellscript",
@@ -32,4 +34,52 @@
         "zlogout": "shellscript",
         "zpreztorc": "shellscript"
     },
+    "[git-commit]": {
+        "editor.rulers": [
+            72,
+            80
+        ]
+    },
+    "git.autofetch": true,
+    "gitlens.codeLens.enabled": false,
+    "git.inputValidationLength": 80,
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "window.zoomLevel": 0,
+    "groovyLint.insight.enable": false,
+    "groovyLint.lint.trigger": "onSave",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "java.semanticHighlighting.enabled": true,
+    "java.configuration.checkProjectSettingsExclusions": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "[yaml]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "java.project.importHint": false,
+    "redhat.telemetry.enabled": false,
+    "terminal.integrated.tabs.enabled": true,
+    "shellcheck.customArgs": [
+        "-x"
+    ],
+    "editor.copyWithSyntaxHighlighting": false,
+    "mypy.runUsingActiveInterpreter": true,
+    "gitlens.defaultDateShortFormat": "YYYY-MM-DD",
+    "gitlens.defaultDateFormat": null,
+    "gitlens.defaultTimeFormat": "HH:mm"
 }

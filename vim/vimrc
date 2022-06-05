@@ -1,6 +1,7 @@
-" Source Vundle plugin list
-so $HOME/.dotfiles/vim/vundler.vim
+set nocompatible " be iMproved
 
+" plugins
+so $HOME/.dotfiles/vim/vim-plug-setup.vim
 
 " ================================================
 " Editor features
@@ -11,10 +12,9 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " Lines
-set number         " Line numbers
-set colorcolumn=80 " Column at 80 chars
-set cursorline     " Highlight current line
-
+set number          " Line numbers
+set colorcolumn=120 " Column at 120 chars
+set cursorline      " Highlight current line
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -27,6 +27,8 @@ set foldcolumn=1
 " Spelling language
 set spelllang=en_us
 
+" Relative line numbers by default, and auto-switch
+set number relativenumber
 
 " ================================================
 " Colors and fonts
@@ -40,6 +42,15 @@ syntax on
 set background=dark
 set t_Co=256
 let base16colorspace=256  " Access colors present in 256 colorspace
+
+" Status bar
+set noshowmode
+set laststatus=2
+let g:lightline = {
+      \ 'colorscheme': 'base16_onedark',
+      \ }
+
+" Color scheme
 colorscheme base16-onedark
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -66,23 +77,8 @@ command W w !sudo tee % > /dev/null
 
 
 " ================================================
-" Syntax checking (Syntastic)
-" ================================================
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
-
-" ================================================
 " Git
 " ================================================
 
 " Git commit messages
 autocmd Filetype gitcommit setlocal spell textwidth=72 colorcolumn=72
-

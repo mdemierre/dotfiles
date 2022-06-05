@@ -1,0 +1,36 @@
+# Inserts a blank line between shell prompts
+add_newline = true
+
+format = """[╭─](dimmed white) $username$directory$fill $git_status$git_branch$python$nodejs$kubernetes$cmd_duration$time$jobs
+[╰─](dimmed white) $status$character"""
+
+[directory]
+read_only = " "
+
+[fill]
+symbol = "─"
+style = "dimmed white"
+
+[cmd_duration]
+min_time = 1_000
+style = "yellow"
+format = "[ $duration]($style) "
+
+[git_branch]
+symbol = " "
+
+[python]
+symbol = " "
+
+[status]
+disabled = false
+symbol = " "
+
+[time]
+disabled = false
+style = "blue"
+format = "[ $time]($style) "
+
+[kubernetes]
+disabled = false
+symbol = "⎈ "
