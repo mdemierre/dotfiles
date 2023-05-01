@@ -35,13 +35,17 @@ set number relativenumber
 " ================================================
 
 " Font
-set gfn=Source\ Code\ Pro:h16,Menlo:h16
+set gfn=Jetbrains\ Mono:h16,Source\ Code\ Pro:h16,Menlo:h16
 
 " Color scheme
 syntax on
 set background=dark
 set t_Co=256
-let base16colorspace=256  " Access colors present in 256 colorspace
+if exists('$BASE16_THEME')
+      \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
+    let base16colorspace=256
+    colorscheme base16-$BASE16_THEME
+endif
 
 " Status bar
 set noshowmode
@@ -49,9 +53,6 @@ set laststatus=2
 let g:lightline = {
       \ 'colorscheme': 'base16_onedark',
       \ }
-
-" Color scheme
-colorscheme base16-onedark
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
