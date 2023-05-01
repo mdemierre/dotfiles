@@ -2,6 +2,9 @@
     name = Marc Demierre
     email = marc.demierre@gmail.com
 
+[includeIf "gitdir:~/dev/heia/"]
+    path = ~/dev/heia/.gitconfig
+
 [core]
     autocrlf = input
     excludesfile = ~/.dotfiles/git/gitignore_global
@@ -39,6 +42,7 @@
 
 [push]
     default = simple
+    autoSetupRemote = true
 
 [pull]
     ff = only
