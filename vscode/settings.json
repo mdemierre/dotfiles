@@ -4,7 +4,7 @@
     "workbench.iconTheme": "vs-nomo-dark",
     "workbench.sideBar.location": "left",
     // Editor
-    "editor.fontFamily": "'SF Mono','Source Code Pro', Monaco, 'Courier New', monospace",
+    "editor.fontFamily": "'JetbrainsMono Nerd Font','Source Code Pro', Monaco, 'Courier New', monospace",
     "editor.fontSize": 18,
     "editor.rulers": [
         80,
@@ -22,9 +22,6 @@
     "terminal.external.osxExec": "iTerm.app",
     // Integrated terminal
     "terminal.integrated.fontSize": 15,
-    // Python
-    "python.venvPath": "~/.pyenv/versions",
-    "python.pythonPath": "/usr/local/python3",
     // Custom file associations
     "files.associations": {
         "zshenv": "shellscript",
@@ -41,11 +38,9 @@
         ]
     },
     "git.autofetch": true,
-    "gitlens.codeLens.enabled": false,
     "git.inputValidationLength": 80,
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
-    "window.zoomLevel": 0,
     "groovyLint.insight.enable": false,
     "groovyLint.lint.trigger": "onSave",
     "editor.suggestSelection": "first",
@@ -53,16 +48,16 @@
     "java.semanticHighlighting.enabled": true,
     "java.configuration.checkProjectSettingsExclusions": false,
     "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.json-language-features"
     },
     "javascript.updateImportsOnFileMove.enabled": "always",
     "[yaml]": {
@@ -80,6 +75,24 @@
     "editor.copyWithSyntaxHighlighting": false,
     "mypy.runUsingActiveInterpreter": true,
     "gitlens.defaultDateShortFormat": "YYYY-MM-DD",
-    "gitlens.defaultDateFormat": null,
-    "gitlens.defaultTimeFormat": "HH:mm"
+    "gitlens.defaultDateFormat": "YYYY-MM-DD HH:mm:ss",
+    "gitlens.defaultTimeFormat": "HH:mm",
+    "gitlens.codeLens.enabled": false,
+    "gitlens.defaultDateLocale": null,
+    "cSpell.language": "en,fr",
+    "cSpell.userWords": [
+        "avro",
+        "DataProc",
+        "distdataproc",
+        "gcloud",
+        "Hadoop",
+        "hefr",
+        "l'UI",
+        "notebooks",
+        "packagé",
+        "spark",
+        "Spark",
+        "unbundling"
+    ],
+    "python.formatting.provider": "black"
 }
