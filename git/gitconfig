@@ -10,6 +10,13 @@
     excludesfile = ~/.dotfiles/git/gitignore_global
     pager = delta --dark --syntax-theme='TwoDark' --file-style="yellow" --file-decoration-style="yellow" --hunk-header-decoration-style="plain"
 
+[push]
+    default = simple
+    autoSetupRemote = true
+
+[pull]
+    ff = only
+
 [delta]
     syntax-theme = TwoDark
     line-numbers = true
@@ -39,10 +46,3 @@
     smudge = git-lfs smudge -- %f
     required = true
     process = git-lfs filter-process
-
-[push]
-    default = simple
-    autoSetupRemote = true
-
-[pull]
-    ff = only
