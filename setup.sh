@@ -55,6 +55,9 @@ ln -si "$DOTFILES_LINK_DIR/vscode/settings.json" './Library/Application Support/
 # Git
 ln -si "$DOTFILES_LINK_DIR/git/gitconfig" .gitconfig
 
+# mise (mise en place)
+ln -si "$DOTFILES_LINK_DIR/mise" ~/.config/mise
+
 # -- Prezto
 setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
