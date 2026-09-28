@@ -1,16 +1,4 @@
 # Repos
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/cask-fonts"
-tap "homebrew/cask-versions"
-tap "homebrew/core"
-
-# Homebrew (builds)
-brew "autoconf"
-brew "automake"
-brew "pkg-config"
-brew "ruby"
-brew "mas" # For mac app store apps
 
 # Base tools
 brew "git-lfs"
@@ -27,7 +15,7 @@ brew "jq"
 brew "age"
 brew "bat"
 brew "dos2unix"
-brew "exa"
+brew "eza"
 brew "fzf"
 brew "git-delta"
 brew "graphviz"
@@ -48,9 +36,11 @@ brew "wget"
 brew "yq"
 brew "zoxide"
 
+# -- Development tools
+brew "mise"
+
 # Java / JVM (Zulu OpenJDK)
-cask "zulu-jdk11"
-cask "zulu-jdk17"
+cask "zulu@25"
 cask "zulu"
 brew "kotlin"
 brew "ant"
@@ -60,16 +50,13 @@ brew "sbt"
 
 # Python
 brew "python"
-brew "pyenv"
-brew "poetry"
+brew "uv"
 
 # Go
 brew "go"
 
 # Javascript
 brew "node"
-brew "nvm"
-brew "yarn"
 
 # Shell scripting
 brew "shellcheck"
@@ -82,32 +69,27 @@ brew "libpq"
 # REST
 cask "insomnia"
 
-# Docker
-brew "dive"
-
 # Kubernetes
 brew "kubectx"
 brew "kubernetes-cli"
 brew "kustomize"
-brew "minikube"
 
 # Kafka
 brew "librdkafka"
 brew "kcat"
 
-# GUIs
+# -- GUIs
 brew "mas" # Mac app store CLI
 cask "insomnia"
 cask "iterm2"
 cask "visual-studio-code"
-cask "joplin"
-cask "alfred"
-cask "yt-music"
+cask "obsidian"
+cask "docker-desktop"
+cask "pgAdmin4"
+cask "striling-pdf"
 
-# Mac App store
+# -- Mac App store
 mas "Amphetamine", id: 937984704
 mas "Magnet", id: 441258766
-mas "Microsoft To Do", id: 1274495053
-mas "PDF Toolkit", id: 405219581
 mas "The Archive Browser", id: 510232205
 mas "The Unarchiver", id: 425424353
